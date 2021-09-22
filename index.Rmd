@@ -1,12 +1,12 @@
 --- 
-title: "Interactive Features of Loss Data Analytics"
-author: "An open text authored by the Actuarial Community"
+title: "Interactive Features of Open Actuarial Textbooks"
+author: "An open project authored by the Actuarial Community"
 site: bookdown::bookdown_site
 output:
   bookdown::gitbook
 documentclass: book
 link-citations: yes
-github-repo: https://github.com/ewfrees/Loss-Data-Analytics/InteractiveLDA/
+github-repo: https://github.com/OpenActTextDev/InteractiveFeatures
 
 ---
 
@@ -15,7 +15,22 @@ github-repo: https://github.com/ewfrees/Loss-Data-Analytics/InteractiveLDA/
 <p style="text-align:right;">
 *Date: `r format(Sys.Date(), "%d %B %Y")`*</p>
 
-This repository describes interactive features of the *Loss Data Analytics* text that are being developed, in process, and in the planning stages. By **interactive features**, we start with simple things like layering content (such as Show/Hide way of displaying code below) and moving on from there.
+This document=== describes interactive features of the *Loss Data Analytics* project that are being developed, in process, and in the planning stages. Here is a list of pieces of the project where we use interactive features:
+
+*  See the [Open Actuarial Textbooks Project Site](https://sites.google.com/a/wisc.edu/loss-data-analytics/) for more information about this project.
+*  [Loss Data Analytics Landing Site](https://openacttexts.github.io/)
+*  [Loss Data Analytics](https://openacttexts.github.io/Loss-Data-Analytics/index.html) is an interactive, online, freely available text.
+* Prospective contributors should check out our [Style Guide](https://OpenActTexts.github.io/StyleGuideLDA/index.html)
+*  [Spanish version of Loss Data Analytics](https://openacttexts.github.io/LDASpanish/)
+*  [Short Course on Loss Data Analytics](https://openacttexts.github.io/LDACourse1/)
+*  [Offline versions of the *Loss Data Analytics*](https://ewfrees.github.io/Loss-Data-Analytics/DownloadOffline.html) book, in **pdf** and **epub**
+*  [R Code for Loss Data Analytics](https://openacttexts.github.io/LDARcode)
+*  [Github Development Site](https://github.com/OpenActTextDev)
+*  [Life Contingencies](https://openacttextdev.github.io/LifeCon/), under development
+
+
+
+By **interactive features**, we start with simple things like layering content (such as Show/Hide way of displaying code below) and move on from there.
 
 
 <h5 style="text-align: center;"><a id="display.T:Frequency.1Intro" href="javascript:togglecode

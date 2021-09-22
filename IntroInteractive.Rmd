@@ -1,4 +1,4 @@
-# Introduction to Interactive Features
+# Why Interactive Features?
 
 ## Active Learning
 
@@ -6,11 +6,11 @@
 
 Proponents of active learning suggest augmenting classroom activities by talking and listening in small groups, and having students write, read, and reflect on material. A variety of classroom tools have been forwarded for engaging students including discussion of scenarios and case studies, one minute papers, "shared brainstorming," and the like. For more details, see a site sponsored by the University of Minnesota that provides [a list of basic active learning activities](https://cei.umn.edu/active-learning) or a [summary](https://cft.vanderbilt.edu/active-learning/) from the University of Vanderbilt.
 
-Active learning is typically used in reference to classroom activities but it can also refer to textbooks. In our implementation of *Loss Data Analytics*, we propose to include a number of **interactive** features that will allow a student to actively explore the content, described in Section \@ref(S:Features).
+Active learning is typically used in reference to classroom activities but it can also refer to textbooks. In our implementation of *Loss Data Analytics*, we propose to include a number of **interactive** features that will allow a participant to actively explore the content, described in Section \@ref(S:Features).
 
 When taken outside of the classroom, the concept of active learning promotes one of the [deeper learning](http://www.hewlett.org/programs/education/deeper-learning) goals set forth by some educational leaders: The ability to learn how to learn independently. We hope that instructors will be able to use the online text so that students can discover how to monitor and direct their own work and learning.
 
-## LDA Interactive Features {#S:Features}
+## Open Actuarial Textbooks Interactive Features {#S:Features}
 
 On the one hand, interactive features will help keep readers engaged as they explore the text. On the other hand, more is not necessarily better. Readers can be easily overwhelmed with a plethora of options and not appreciated the pedagogic approach with too many alternatives. So, we need to be thoughtful as we introduce interactive features.
 
@@ -44,7 +44,7 @@ There are a number of features that we now know how to implement in our environm
 
 * **Links to external sources**. This is easy to do with our system. The challenge is getting the right set of references and setting up a system so that links can be maintained.
 
-## LDA Non-Interactive Features {#S:NonFeatures}
+## Other (Non-Interactive) Features {#S:NonFeatures}
 
 Simply to round out the discussion, we point out features that are not interactive that still help to set the book project apart as special. These include:
 

@@ -4,8 +4,8 @@
 %
 \documentclass[
 ]{book}
+\usepackage{amsmath,amssymb}
 \usepackage{lmodern}
-\usepackage{amssymb,amsmath}
 \usepackage{ifxetex,ifluatex}
 \ifnum 0\ifxetex 1\fi\ifluatex 1\fi=0 % if pdftex
   \usepackage[T1]{fontenc}
@@ -36,12 +36,13 @@
 \IfFileExists{xurl.sty}{\usepackage{xurl}}{} % add URL line breaks if available
 \IfFileExists{bookmark.sty}{\usepackage{bookmark}}{\usepackage{hyperref}}
 \hypersetup{
-  pdftitle={Interactive Features of Loss Data Analytics},
-  pdfauthor={An open text authored by the Actuarial Community},
+  pdftitle={Interactive Features of Open Actuarial Textbooks},
+  pdfauthor={An open project authored by the Actuarial Community},
   hidelinks,
   pdfcreator={LaTeX via pandoc}}
 \urlstyle{same} % disable monospaced font for URLs
-\usepackage{longtable,booktabs}
+\usepackage{longtable,booktabs,array}
+\usepackage{calc} % for calculating minipage widths
 % Correct order of tables after \paragraph or \subparagraph
 \usepackage{etoolbox}
 \makeatletter
@@ -50,7 +51,7 @@
 % Allow footnotes in longtable head/foot
 \IfFileExists{footnotehyper.sty}{\usepackage{footnotehyper}}{\usepackage{footnote}}
 \makesavenoteenv{longtable}
-\usepackage{graphicx,grffile}
+\usepackage{graphicx}
 \makeatletter
 \def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth\else\Gin@nat@width\fi}
 \def\maxheight{\ifdim\Gin@nat@height>\textheight\textheight\else\Gin@nat@height\fi}
@@ -69,11 +70,14 @@
 \setcounter{secnumdepth}{5}
 \usepackage{booktabs}
 \setcounter{secnumdepth}{2}
+\ifluatex
+  \usepackage{selnolig}  % disable illegal ligatures
+\fi
 \usepackage[]{natbib}
 \bibliographystyle{plainnat}
 
-\title{Interactive Features of Loss Data Analytics}
-\author{An open text authored by the Actuarial Community}
+\title{Interactive Features of Open Actuarial Textbooks}
+\author{An open project authored by the Actuarial Community}
 \date{}
 
 \begin{document}
@@ -89,7 +93,31 @@
 
 \emph{Date: 22 September 2021}
 
-This repository describes interactive features of the \emph{Loss Data Analytics} text that are being developed, in process, and in the planning stages. By \textbf{interactive features}, we start with simple things like layering content (such as Show/Hide way of displaying code below) and moving on from there.
+This repository describes interactive features of the \emph{Loss Data Analytics} project that are being developed, in process, and in the planning stages. Here is a list of pieces of the project where we use interactive features:
+
+\begin{itemize}
+\tightlist
+\item
+  See the \href{https://sites.google.com/a/wisc.edu/loss-data-analytics/}{Open Actuarial Textbooks Project Site} for more information about this project.
+\item
+  \href{https://openacttexts.github.io/}{Loss Data Analytics Landing Site}
+\item
+  \href{https://openacttexts.github.io/Loss-Data-Analytics/index.html}{Loss Data Analytics} is an interactive, online, freely available text.
+\item
+  Prospective contributors should check out our \href{https://OpenActTexts.github.io/StyleGuideLDA/index.html}{Style Guide}
+\item
+  \href{https://openacttexts.github.io/LDASpanish/}{Spanish version of Loss Data Analytics}
+\item
+  \href{https://openacttexts.github.io/LDACourse1/}{Short Course on Loss Data Analytics}
+\item
+  \href{https://openacttexts.github.io/LDARcode}{R Code for Loss Data Analytics}
+\item
+  \href{https://github.com/OpenActTextDev}{Github Development Site}
+\item
+  \href{https://openacttextdev.github.io/LifeCon/}{Life Contingencies}, under development
+\end{itemize}
+
+By \textbf{interactive features}, we start with simple things like layering content (such as Show/Hide way of displaying code below) and move on from there.
 
 R Code for Frequency Table
 
@@ -176,10 +204,13 @@ Simply to round out the discussion, we point out features that are not interacti
   Translations of the work will begin shortly, focusing on a Spanish version but with a Portugese one also in the works.
 \end{itemize}
 
-\#End of Section Quizzes \{\#S:EndSectionQuizzes\}
+\hypertarget{S:EndSectionQuizzes}{%
+\chapter{End of Section Quizzes}\label{S:EndSectionQuizzes}}
 
 \hypertarget{introduction-to-loss-data-analytis}{%
-\section{1. Introduction to Loss Data Analytis}\label{introduction-to-loss-data-analytis}}
+\section{Introduction to Loss Data Analytis}\label{introduction-to-loss-data-analytis}}
+
+Here are a few quizzes, just to provide a flavor. More are available in \href{https://openacttexts.github.io/Loss-Data-Analytics/index.html}{Loss Data Analytics}.
 
 \hypertarget{section-1.1}{%
 \subsection{Section 1.1}\label{section-1.1}}

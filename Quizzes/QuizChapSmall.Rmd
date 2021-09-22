@@ -1,10 +1,12 @@
-#End of Section Quizzes {#S:EndSectionQuizzes}
+# End of Section Quizzes {#S:EndSectionQuizzes}
 
-## 1. Introduction to Loss Data Analytis
+## Introduction to Loss Data Analytis
+
+Here are a few quizzes, just to provide a flavor. More are available in [Loss Data Analytics](https://openacttexts.github.io/Loss-Data-Analytics/index.html).
 
 ### Section 1.1 
 
-```{r child = './Quizzes/Quiz11.html'}
+```{r child = './Quizzes/Quiz11.html'} 
 ```
 
 ### Section 1.2
