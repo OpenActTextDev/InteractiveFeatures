@@ -6,48 +6,55 @@
 
 Proponents of active learning suggest augmenting classroom activities by talking and listening in small groups, and having students write, read, and reflect on material. A variety of classroom tools have been forwarded for engaging students including discussion of scenarios and case studies, one minute papers, "shared brainstorming," and the like. For more details, see a site sponsored by the University of Minnesota that provides [a list of basic active learning activities](https://cei.umn.edu/active-learning) or a [summary](https://cft.vanderbilt.edu/active-learning/) from the University of Vanderbilt.
 
-Active learning is typically used in reference to classroom activities but it can also refer to textbooks. In our implementation of *Loss Data Analytics*, we propose to include a number of **interactive** features that will allow a participant to actively explore the content, described in Section \@ref(S:Features).
+Active learning is typically used in reference to classroom activities but it can also refer to textbooks. In our implementation of *Loss Data Analytics*, we propose to include a number of **interactive** features that will allow a participant to actively explore the content, described in Section \@ref(Sec:Features).
 
-When taken outside of the classroom, the concept of active learning promotes one of the [deeper learning](http://www.hewlett.org/programs/education/deeper-learning) goals set forth by some educational leaders: The ability to learn how to learn independently. We hope that instructors will be able to use the online text so that students can discover how to monitor and direct their own work and learning.
+When taken outside of the classroom, the concept of active learning promotes one of the [deeper learning](http://www.hewlett.org/programs/education/deeper-learning) goals set forth by some educational leaders: *The ability to learn how to learn independently*. We hope that instructors will be able to use the online text so that students can discover how to monitor and direct their own work and learning.
 
-## Open Actuarial Textbooks Interactive Features {#S:Features}
+## Open Actuarial Textbooks Interactive Features {#Sec:Features}
 
 On the one hand, interactive features will help keep readers engaged as they explore the text. On the other hand, more is not necessarily better. Readers can be easily overwhelmed with a plethora of options and not appreciated the pedagogic approach with too many alternatives. So, we need to be thoughtful as we introduce interactive features.
 
-### What we Have
+Both the book and the short course are authored using the `R` **Bookdown** package and hosted on Github. This allows to readily incorporate several .html, .css, and javascripts tools to enchance the interactivity.
 
-One easy feature that we have already adopted extensively is to layer the content through the use of *Show/Hide* labels or text. Clicking on text that is bold, in different fonts, as well as color, allows viewers to reveal and to hide selected material. We use:
+### What we Have -- Textbook
+
+In [*Loss Data Analytics*](https://openacttexts.github.io/Loss-Data-Analytics/index.html), we include:
+
+**Layered Content.** One easy feature that we have already adopted extensively is to layer the content through the use of *Show/Hide* labels or text. Clicking on text that is bold, in different fonts, as well as color, allows viewers to reveal and to hide selected material. We use:
 
 * Statistical (`R`) code available via *Show/Hide* labels
 * Exercise Solutions available via *Show/Hide* labels
 * Short demonstrations ("snippets") of mathematics available via *Show/Hide* labels
 
-Another feature (not so easy to code) that we have introduced is quizzes that appear at the end of each section. These quizzes are low-level formative assessment tools; they allow viewers to check their comprehension of material that they have just read. More details on **End of Section Quizzes** appear in Section \@ref(S:EndSectionQuizzes) of this summary.
+**Online Glossary.** This is a feature that viewers regularly see in websites and so will not be overwhelming. The idea is to move the cursor/mouse over selected terms/phrases and have a definition appear. This is <a href="#" class="tooltip" style="color:green">*handy*<span style="font-size:8pt">convenient to handle or use</span></a> for insurance and statistical terms, as well as reminders of selected acronyms. 
 
-We have also incorporated a number of **Animated Graphs** graphs in the simulation Chapter 6. [Here](https://openacttexts.github.io/Loss-Data-Analytics/C-Simulation.html#S:ImportanceSampling) is one demonstration. These are coded in `R` - although moving (animated), they do not require user interaction.
+**Animated Graphs.** We have also incorporated a number of animated  graphs in the [Simulation Chapter 6](https://openacttexts.github.io/Loss-Data-Analytics/C-Simulation.html#S:ImportanceSampling). These are coded in `R` - although moving (animated), they do not require user interaction.
 
-### In Process
+**End of Section Quizzes.** Another feature (not so easy to code) that we have introduced is quizzes that appear at the end of each section. These quizzes are low-level formative assessment tools; they allow viewers to check their comprehension of material that they have just read. More details on this feature appear in Section \@ref(Sec:EndSectionQuizzes) of this summary.
 
-We are currently in the process of developing an **Online Glossary**. This is a feature that viewers regularly see in websites and so will not be overwhelming. The idea is to move the cursor/mouse over selected terms/phrases and have a definition appear. This is handy for insurance and statistical terms, as well as reminders of selected acronyms. 
+**Exercises.** One of our big challenges is to decide upon the type and extent of exercises to include. See the Section \@ref(Sec:Exercises) for a discussion.
 
-One of our big challenges will be to decide upon the type and extent of **Exercises** to include. See the Section \@ref(S:Exercises) for a summary.
+### What we Have -- Short Course
+
+In the [Short Course on Loss Data Analytics](https://openacttexts.github.io/LDACourse1/), we include:
+
+*  **Video explanation of concepts**. Videos are easy to incorporate into our short course (books as well, although we have not done so). All videos are closed-captioned for accessibility. [Our strategy site](https://openacttextdev.github.io/LDAShortCourseStrategy/C-Instructions.html#video-contributors) contains standards for video production.
+
+*  **Interactive statistical code**. As we move from a world of mathematical/probabilistic modeling to one that features data, we need to think more about how to integrate statistcal code into the pedagogy. The short course tools provided by *Datacamp*. See Section \@ref(Sec:StatisticalCode) for a discussion.
+
+* **Links to external sources**. Videos are easy to incorporate into our short course  (books as well, although we have not used them as actively as in the short course). The challenge is getting the right set of references and setting up a system so that links can be maintained.
 
 ### Plans for Future Work
 
-There are a number of features that we now know how to implement in our environment (using `R` **Bookdown** package with Github) but have not yet initiated. In some cases, it is simply a matter of recruiting volunteers to author the content. In other cases, we need to convince ourselves that these additions will actually improve the work.
+*  **Interactive graphs**. The `R` package **Shiny** allows us to introduce interactive graphs. For an example, go to our [R code site under gamma distribution](https://openacttexts.github.io/LDARcode/#32_gamma_distribution) fand click on the tab *Varying the Scale Parameter.* Part of the issue is getting volunteers to author the content. Another part is that this package requires a bit more overhead so it is not clear as to whether this gets integrated into the book or is placed in a supporting site.
+*  **RDRR.IO site**. See Section \@ref(Sec:Graphs) for further discussion.
+*  Anaconda extensions. Very interesting.
+*  Google Colab - another possibility...
 
-*  **Video explanation of concepts**. This is easy to do with our system - see [the site](https://ewfreesres.github.io/RegressModel/index.html) for an example. The challenge is to recruit people willing to author the content.
-
-*  **Interactive statistical code**. As we move from a world of mathematical/probabilistic modeling to one that features data, we need to think more about how to integrate statistcal code into the pedagogy. See Section \@ref(S:StatisticalCode) for a summary.
-
-*  **Interactive graphs**. The `R` package **Shiny** allows us to introduce interactive graphs. See [the site](https://ewfrees.github.io/LDARcode/index.html#32_gamma_distribution) for an example. Part of the issue is getting volunteers to author the content. Another part is that this package requires a bit more overhead so it is not clear as to whether this gets integrated into the book or is placed in a supporting site.
-
-* **Links to external sources**. This is easy to do with our system. The challenge is getting the right set of references and setting up a system so that links can be maintained.
-
-## Other (Non-Interactive) Features {#S:NonFeatures}
+## Other (Non-Interactive) Features {#Sec:NonFeatures}
 
 Simply to round out the discussion, we point out features that are not interactive that still help to set the book project apart as special. These include:
 
-*  Collobarative, international author and review teams. There a variety of points of view represented in this work, making it stronger than if authored by an individual.
+*  Collaborative, international author and review teams. There a variety of points of view represented in this work, making it stronger than if authored by an individual.
 *  Offline versions of the text, via *pdf* and *EPUB*, are freely available.
 *  Translations of the work will begin shortly, focusing on a Spanish version but with a Portugese one also in the works.

@@ -15,22 +15,27 @@ github-repo: https://github.com/OpenActTextDev/InteractiveFeatures
 <p style="text-align:right;">
 *Date: `r format(Sys.Date(), "%d %B %Y")`*</p>
 
-This document=== describes interactive features of the *Loss Data Analytics* project that are being developed, in process, and in the planning stages. Here is a list of pieces of the project where we use interactive features:
+
+#### Use of *R* as a Tool for Interactive Books and Short Courses {-}
+
+There are many great tools that have been developed to author books (e.g., Word, latex) and interactive short courses (e.g., Wordpress). However, we are using `R` as a tool for writing (books and webpages) through its **markdown** capabilities, including the package `bookdown`. The use of `R` is well known to the actuarial community - we hope that promoting its application for authoring our books and short courses will help in recruiting a broad and sustainable group of authors and other volunteers from the actuarial community.
+
+ Here is a list of pieces of the project:
 
 *  See the [Open Actuarial Textbooks Project Site](https://sites.google.com/a/wisc.edu/loss-data-analytics/) for more information about this project.
 *  [Loss Data Analytics Landing Site](https://openacttexts.github.io/)
-*  [Loss Data Analytics](https://openacttexts.github.io/Loss-Data-Analytics/index.html) is an interactive, online, freely available text.
-* Prospective contributors should check out our [Style Guide](https://OpenActTexts.github.io/StyleGuideLDA/index.html)
-*  [Spanish version of Loss Data Analytics](https://openacttexts.github.io/LDASpanish/)
+   *  [*Loss Data Analytics*](https://openacttexts.github.io/Loss-Data-Analytics/index.html) is an interactive, online, freely available text.
+   *  [Offline versions of the *Loss Data Analytics*](https://ewfrees.github.io/Loss-Data-Analytics/DownloadOffline.html) book, in **pdf** and **epub**
+   *  [Spanish version of *Loss Data Analytics*](https://openacttexts.github.io/LDASpanish/)
+   *  [R Code to support *Loss Data Analytics*](https://openacttexts.github.io/LDARcode)
+*  A [Style Guide](https://OpenActTexts.github.io/StyleGuideLDA/index.html) (prospective contributors should check this out)
 *  [Short Course on Loss Data Analytics](https://openacttexts.github.io/LDACourse1/)
-*  [Offline versions of the *Loss Data Analytics*](https://ewfrees.github.io/Loss-Data-Analytics/DownloadOffline.html) book, in **pdf** and **epub**
-*  [R Code for Loss Data Analytics](https://openacttexts.github.io/LDARcode)
 *  [Github Development Site](https://github.com/OpenActTextDev)
-*  [Life Contingencies](https://openacttextdev.github.io/LifeCon/), under development
+   *  [*Life Contingencies*](https://openacttextdev.github.io/LifeCon/), under development
 
+#### Interactive Features {-}
 
-
-By **interactive features**, we start with simple things like layering content (such as Show/Hide way of displaying code below) and move on from there.
+This document describes interactive features of the *Open Actuarial Textbooks* project that are being developed, in process, and in the planning stages. By **interactive features**, we start with simple things like layering content (such as Show/Hide way of displaying code below) and move on from there.
 
 
 <h5 style="text-align: center;"><a id="display.T:Frequency.1Intro" href="javascript:togglecode
