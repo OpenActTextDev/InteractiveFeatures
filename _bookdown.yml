@@ -1,10 +1,10 @@
-book_filename: "LossDataAnalytics"
+book_filename: "InteractiveFeatures"
 output_dir: "docs"
 rmd_files: ["References/Packages.Rmd",
            "References/Glossary.Rmd",
             "index.Rmd",
             "IntroInteractive.Rmd",
-#            "Quizzes/QuizChapSmall.Rmd",
+            "CodeSpreadsheetsGraphs.Rmd",
             "ExternalExercises.Rmd"]
            
 language:

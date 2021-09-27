@@ -1,3 +1,5 @@
+fig:BaseLifeInsPlot
+fig:BaseLifeAnnPlot
 why-interactive-features
 active-learning
 Sec:Features
@@ -5,6 +7,15 @@ what-we-have-textbook
 what-we-have-short-course
 plans-for-future-work
 Sec:NonFeatures
+code-spreadsheets-and-graphs
+Sec:StatisticalCode
+datacamp
+rdrr.io-alternative
+a-few-words-on-spreadsheets
+onedrive
+dynamic-spreadsheets
+Sec:Graphs
+three-dimensional-interactive-graphs
 exercises-and-quizzes
 Sec:Exercises
 incorporating-exercises-into-the-textbook
@@ -15,7 +26,3 @@ incorporating-datacamp-exercises-into-the-short-course
 Sec:EndSectionQuizzes
 section-1.1
 section-1.2
-code-spreadsheets-and-graphs
-Sec:StatisticalCode
-a-few-words-on-spreadsheets
-Sec:Graphs

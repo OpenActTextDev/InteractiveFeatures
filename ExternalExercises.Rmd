@@ -1,3 +1,5 @@
+
+
 # Exercises and Quizzes
 
 ## Exercises {#Sec:Exercises}
@@ -51,29 +53,3 @@ The more straight-forward aspect is the inclusion of end of the section quizzes.
 ```
 
 
-
-
-# Code, Spreadsheets, and Graphs 
-
-## Incorporating Code {#Sec:StatisticalCode}
-
-
-
-
-*  As the baseline, we have already remarked that `R` statistical code appears in the text, although it does not overwhelm readers via the *Show/Hide* features that we are using.
-
-* It will be straight forward to also include **Python** code in the same fashion.
-
-*  We have a [supporting site for statistical code](https://ewfrees.github.io/LDARcode/index.html) that allows viewers to get more experience analyzing loss data using `R`.
-
-More on *RDRR.IO* here ...
-
-
-## A Few Words on Spreadsheets
-
-Javascript versus ....
-
-## More on Graphs {#Sec:Graphs}
-
-
-z

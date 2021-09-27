@@ -10,7 +10,7 @@ bookdown::epub_book: default
 bookdown::gitbook:
   css: style.css
   includes:
-    in_header: ShowHide.js
+    in_header: ["ShowHideA.js", "tab.js"]
   config:
     toc:
       collapse: subsection

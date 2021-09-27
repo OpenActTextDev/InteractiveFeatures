@@ -1,0 +1,405 @@
+
+
+# Code, Spreadsheets, and Graphs 
+
+## Incorporating Code {#Sec:StatisticalCode}
+
+As the baseline, we have already remarked that `R` statistical code appears in the text, although it does not overwhelm readers via the *Show/Hide* features that we are using.
+
+*  It will be straight forward to also include **Python** code in the same fashion.
+*  We also have a [supporting site for statistical code](https://ewfrees.github.io/LDARcode/index.html) that allows viewers to get more experience analyzing loss data using `R`.
+
+Going forward, we want the ability to include more interactive code. The idea here is that include code in a box, allow users to modify the code, and then execute it.
+
+### Datacamp
+
+The best method that we currently have available is the [Datacamp](https://www.datacamp.com/) platform. On [our Github site](https://github.com/OpenActTextDev/InteractiveFeatures), you can find code that demonstrates our extensive experience with the **Datacamp Lite** package.
+
+
+```{r include = FALSE}
+knitr::opts_chunk$set(results = "hold")
+tutorial::go_interactive(greedy = FALSE)
+```
+
+
+```{r ex="LDA1.1.3.1", type="sample-code", tut=TRUE}
+#  Analysis for Year 2010
+Insample <- read.csv("https://raw.githubusercontent.com/OpenActTexts/LDACourse1/main/Data/Insample.csv", header=T, na.strings=c("."), stringsAsFactors=FALSE)
+Insample2010 <- subset(Insample, Year==2010)
+Freq2010 <- Insample2010$Freq
+( Leng2010 <- length(Freq2010) )
+( Mean2010 <- mean(Freq2010) )
+( Tab2010 <-table(Freq2010) )
+
+```
+
+`r HideRCode('DataCamp.1',"R Code For Varying Payments with Uncertainty")`
+
+
+```{r ex="LDA1.1.3.2", type="sample-code", tut=TRUE}
+Time <- 1:12
+#Payments
+FlatPay <- rep(11, 12)
+IncPay <- seq(from=0, to=22, by=2)
+#Interest Rates
+FlatInt <- rep(0.055, 12)
+IncInt <- seq(from=0, to=0.11, by=0.01)
+#Discount Values
+DV.Flat <- 1/(1+FlatInt[1])
+for(i in 2:12) {DV.Flat[i] <- DV.Flat[i-1]/(1+FlatInt[i])
+               }
+DV.Inc <- 1/(1+IncInt[1])
+for(i in 2:12) {DV.Inc[i] <- DV.Inc[i-1]/(1+IncInt[i])
+}
+#Present Value of Payments
+FlatPay.FlatInt <- FlatPay*DV.Flat
+FlatPay.IncInt  <- FlatPay*DV.Inc
+IncPay.FlatInt <- IncPay*DV.Flat
+IncPay.IncInt  <- IncPay*DV.Inc
+#Plot Present Value of Payments
+plot(Time, FlatPay.FlatInt, type = "b", ylim = c(0,14), ylab = "Present Value", xlab = "Time")
+  lines(Time, FlatPay.IncInt, type = "b")
+  lines(Time, IncPay.FlatInt, type = "b")
+  lines(Time, IncPay.IncInt, type = "b")
+```
+
+</div>
+
+
+### Rdrr.io Alternative
+
+The main limitation of the **Datacamp** method is that the graphs do not look so great. An alternative is  [Rdrr.io](https://rdrr.io); here, the graphs look better. However, at this point, **we do not how to use the code to read external data**, a major limitation. 
+
+The procedure for including this code into a *markdown* page is drawn from the [Rdrr.io embedding site](https://rdrr.io/snippets/embedding/).
+
+*  Copy the code into the box under "Adding your own R code"
+*  Hit the button to "Generate embed code"
+*  Copy the embed code into the *markdown* document.
+
+
+`r HideRCode('RdRR.1',"R Code For Varying Payments with Uncertainty - Plot Looks Better than via Datacamp")`
+
+<iframe width='100%' height='300' src='https://rdrr.io/snippets/embed/?code=Time%20%3C-%201%3A12%0A%23Payments%0AFlatPay%20%3C-%20rep(11%2C%2012)%0AIncPay%20%3C-%20seq(from%3D0%2C%20to%3D22%2C%20by%3D2)%0A%23Interest%20Rates%0AFlatInt%20%3C-%20rep(0.055%2C%2012)%0AIncInt%20%3C-%20seq(from%3D0%2C%20to%3D0.11%2C%20by%3D0.01)%0A%23Discount%20Values%0ADV.Flat%20%3C-%201%2F(1%2BFlatInt%5B1%5D)%0Afor(i%20in%202%3A12)%20%7BDV.Flat%5Bi%5D%20%3C-%20DV.Flat%5Bi-1%5D%2F(1%2BFlatInt%5Bi%5D)%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%7D%0ADV.Inc%20%3C-%201%2F(1%2BIncInt%5B1%5D)%0Afor(i%20in%202%3A12)%20%7BDV.Inc%5Bi%5D%20%3C-%20DV.Inc%5Bi-1%5D%2F(1%2BIncInt%5Bi%5D)%0A%7D%0A%23Present%20Value%20of%20Payments%0AFlatPay.FlatInt%20%3C-%20FlatPay*DV.Flat%0AFlatPay.IncInt%20%20%3C-%20FlatPay*DV.Inc%0AIncPay.FlatInt%20%3C-%20IncPay*DV.Flat%0AIncPay.IncInt%20%20%3C-%20IncPay*DV.Inc%0A%23Plot%20Present%20Value%20of%20Payments%0Aplot(Time%2C%20FlatPay.FlatInt%2C%20type%20%3D%20%22b%22%2C%20ylim%20%3D%20c(0%2C14)%2C%20ylab%20%3D%20%22Present%20Value%22%2C%20xlab%20%3D%20%22Time%22)%0A%20%20lines(Time%2C%20FlatPay.IncInt%2C%20type%20%3D%20%22b%22)%0A%20%20lines(Time%2C%20IncPay.FlatInt%2C%20type%20%3D%20%22b%22)%0A%20%20lines(Time%2C%20IncPay.IncInt%2C%20type%20%3D%20%22b%22)' frameborder='0'></iframe>
+
+</div>
+
+`r HideRCode('RdRR.2',"R Code That Does not Work - Tries to Read External Data")`
+
+<iframe width='100%' height='300' src='https://rdrr.io/snippets/embed/?code=%0AInsample%20%3C-%20read.csv(%22https%3A%2F%2Fraw.githubusercontent.com%2FOpenActTexts%2FLDACourse1%2Fmain%2FData%2FInsample.csv%22%2C%20header%3DT%2C%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20na.strings%3Dc(%22.%22)%2C%20stringsAsFactors%3DFALSE)%0AInsample2010%20%3C-%20subset(Insample%2C%20Year%3D%3D2010)%0AFreq2010%20%3C-%20Insample2010%24Freq%0A(%20Leng2010%20%3C-%20length(Freq2010)%20)%0A(%20Mean2010%20%3C-%20mean(Freq2010)%20)%0A(%20Tab2010%20%3C-table(Freq2010)%20)' frameborder='0'></iframe>
+
+
+</div>
+
+## A Few Words on Spreadsheets
+
+We have experimented with a few spreadsheet approaches. So far, the **OneDrive** approach is far simpler to implement. It may be that dynamic spreadsheets can be eventually used; in principle they require only javascript and so should be more accessible to users in distant reaches of the globe. However, at the moment, they are difficult to code and to maintain.
+
+
+### OneDrive
+
+The approach is outlined at the site 
+[Share it: Embed an Excel workbook on your web page or blog from OneDrive](https://support.microsoft.com/en-us/office/share-it-embed-an-excel-workbook-on-your-web-page-or-blog-from-onedrive-804e1845-5662-487e-9b38-f96307144081). Essentially, one uploads the spreadsheet to OneDrive (a Microsoft thing) and then places code to embed it into html page.
+
+
+
+***
+
+Display. **Ten Year Cash Flow Spreadsheet**
+
+<center>
+<iframe width="650" height="520" frameborder="1" scrolling="no"  src="https://onedrive.live.com/embed?resid=9F1B70CE7B0595D1%211721&authkey=%21AKZxnb5t3WqUBGM&em=2&AllowTyping=True&wdHideGridlines=True&wdDownloadButton=True&wdInConfigurator=True"></iframe>
+</center>
+
+***
+
+
+### Dynamic Spreadsheets
+
+
+These are the results of experimentation with the [Jspreadsheet](https://bossanova.uk/jspreadsheet/v4/) javascript package for dynamic spreadsheets (formerly called **jExcel**). It utilizes the ["Highcharts"](https://www.highcharts.com/) package for dynamic graphs.
+
+
+This was working before but the developer made some enhancements. So, now this needs to be fixed (maybe later....).
+
+
+
+[Table 3.1]:\#tab:31
+
+<a id=tab:31></a>
+
+Table 3.1. **Varying Payments and Rates of Interest**
+
+<div id="spreadsheetLC311"></div>
+<p><button id='downloadLC311'>Export this spreadsheet as CSV</button></p>
+
+[Figure 3.1]:\#fig:31
+
+<a id=fig:31></a>
+
+`r ECHOCODE = FALSE`
+
+<div id="containerLC311"></div>
+
+```{r echo=ECHOCODE}
+# Import data from CSV file, then convert so it can be used in Javascript
+data311 <- read.csv("Data/LC_Example_3.1.csv", header = F)
+
+df_to_js <- function(x, var_name = "data311", ...){
+            json_data <- jsonlite::toJSON(x, ...)
+            htmltools::tags$script(paste0("var ",var_name," = ", json_data, ";"))
+            }
+df_to_js(data311)
+# See https://www.aliciaschep.com/blog/js-rmarkdown/
+#  and https://livefreeordichotomize.com/2017/01/24/custom-javascript-visualizations-in-rmarkdown/
+# To save formulas in Excel, go to Formulas ==> Show Formulas. Then save as .csv file
+```
+
+
+```{js echo=ECHOCODE}
+// Functions for Updating Graph Dynamically
+// Series to be plotted are in columns 2 through 12 (B-M), inclusive
+function myPlotSeries(z){
+  var plotseries = [
+      parseFloat(z[2].innerHTML),parseFloat(z[3].innerHTML),parseFloat(z[4].innerHTML),
+      parseFloat(z[5].innerHTML),parseFloat(z[6].innerHTML),parseFloat(z[7].innerHTML),
+      parseFloat(z[8].innerHTML),parseFloat(z[9].innerHTML),parseFloat(z[10].innerHTML),
+      parseFloat(z[11].innerHTML),parseFloat(z[12].innerHTML),parseFloat(z[13].innerHTML)
+      ];
+  return plotseries;
+  };
+var update311 = function (instance, cell, x, y, value) {
+  z = mySpreadsheet311.tbody.rows.item(y).cells; var plotseries = myPlotSeries(z); 
+// The first series to be plotted is in row 9.   
+if (y >= 8 && y < 12 ) {
+      if (x == 0) {
+            // Update legend
+            chart311.series[y-8].update({ name:value });
+            } else if (x < plotseries.length+1) {
+            // Update chart data
+            chart311.series[y-8].data[x-1].update({ y:plotseries[x-1] });
+            }
+        }     
+    };
+  
+```
+
+
+```{js echo=ECHOCODE}
+data311[7]["V14"]="Sum";
+// Spreadsheet Defined
+var mySpreadsheet311 = jexcel(document.getElementById('spreadsheetLC311'), {
+    data: data311,
+    columns: [
+       { type: 'text', width:'320', 'align': 'left' },
+       { type: 'numeric',  width:'60', mask:'#.000', decimal:'.'},
+       { type: 'numeric',  width:'60', mask:'#.000', decimal:'.'},
+       { type: 'numeric',  width:'60', mask:'#.000', decimal:'.'},
+       { type: 'numeric',  width:'60', mask:'#.000', decimal:'.'},
+       { type: 'numeric',  width:'60', mask:'#.000', decimal:'.'},
+       { type: 'numeric',  width:'60', mask:'#.000', decimal:'.'},
+       { type: 'numeric',  width:'60', mask:'#.000', decimal:'.'},
+       { type: 'numeric',  width:'60', mask:'#.000', decimal:'.'},
+       { type: 'numeric',  width:'60', mask:'#.000', decimal:'.'},
+       { type: 'numeric',  width:'60', mask:'#.000', decimal:'.'},
+       { type: 'numeric',  width:'60', mask:'#.000', decimal:'.'},
+       { type: 'numeric',  width:'60', mask:'#.000', decimal:'.'},
+        ],
+    minDimensions: [15,13],
+    tableOverflow: true,
+    tableWidth: '800px',
+    tableHeight: '8000px',
+    freezeColumns: 1,
+        onchange:update311,
+            style: {
+        A13:'background-color: yellow;',
+        B13:'background-color: yellow;',
+        A8: 'font-weight: bold;',
+        N8: 'font-weight: bold;',        
+    },
+});
+
+```
+
+
+```{js echo=ECHOCODE}
+// Make a Download Button
+document.getElementById("downloadLC311").addEventListener("click", myFunctionDownload);
+function myFunctionDownload() {mySpreadsheet311.download();};
+
+```
+
+```{js echo=ECHOCODE  }
+// Define Plot Series
+z = mySpreadsheet311.tbody.rows.item(0).cells;var plotseries0 = myPlotSeries(z);
+z = mySpreadsheet311.tbody.rows.item(8).cells;var plotseries1 = myPlotSeries(z);
+z = mySpreadsheet311.tbody.rows.item(9).cells;var plotseries2 = myPlotSeries(z);
+z = mySpreadsheet311.tbody.rows.item(10).cells;var plotseries3 = myPlotSeries(z);
+z = mySpreadsheet311.tbody.rows.item(11).cells;var plotseries4 = myPlotSeries(z);
+// Define the Graph
+var chart311 = null;
+chart311 = Highcharts.chart('containerLC311', {
+    title: { text: 'Figure 3.1 Present Value of Varying Payments',
+             x:    -20 //center
+    },
+    <!-- subtitle: {text: 'Source: Actuarial Community', x: -20 }, -->
+    xAxis: {title: {text: 'Time'}, categories: plotseries0 },
+    yAxis: {title: {text: 'Present Value' },
+            plotLines: [{
+              value: 0,
+              width: 1,
+              color: '#808080'
+            }]
+    },
+    tooltip: {valueSuffix: '$'},
+    legend: {
+        layout: 'vertical',
+        align: 'right',
+        verticalAlign: 'middle',
+        borderWidth: 0
+    },  
+    series: [{name: data311[8]["V1"],  data: plotseries1}, 
+             {name: data311[9]["V1"],  data: plotseries2},
+             {name: data311[10]["V1"], data: plotseries3},
+             {name: data311[11]["V1"], data: plotseries4}  
+             ]
+    });
+    
+```
+
+## More on Graphs {#Sec:Graphs}
+
+As mentioned before, we have incorporated a number of animated  graphs in the [Simulation Chapter 6](https://openacttexts.github.io/Loss-Data-Analytics/C-Simulation.html#S:ImportanceSampling). These are coded in `R` - although moving (animated), they do not require user interaction.
+
+
+### Three Dimensional Interactive Graphs
+
+
+
+```{r echo = FALSE}
+#  Mortality Calculations
+cons         <-  1e-6
+time_fac     <-  -0.013078529
+coeff_age    <-  0.11691 
+coeff_male   <-  0.40359
+coeff_bpress <-  0.01645
+coeff_smok   <-  0.76798
+coeff_obese  <-  0.24944 #BMI beyond 30
+xage <- seq(0,120)
+q.x.function <- function(time=65,x=xage, male=0, bpress=114.06, smoke=0, obese=0){
+  c.rate <- coeff_age+time_fac
+  c.rate <- c.rate + (c.rate==0)*1e-12
+  c.x <- cons*exp( coeff_male * male + coeff_bpress * bpress + 
+                   coeff_smok * smoke + coeff_obese * obese +
+                   time_fac * time + coeff_age * xage )
+  q.x <- 1-exp(-c.x*((exp(c.rate)-1)/c.rate) )
+  return(q.x)
+}
+
+#  Actuarial Present Value Calculations
+numInt <- 0:(length(xage)-1)
+int = 0.04
+spotrate <- (1+int)^(-numInt)
+APV <- function(x=xage, q.x=q.x.female, spotrate=spotrate, int=0.04){
+  #spotrate not used so far...
+  v = 1/(1+int)
+  num = length(xage)
+  A.x <- 0*xage -> add.x
+  A.x[num] = v*q.x[num]
+  add.x[num] = 1 + (1-q.x[num])/(int + 1e-12)
+  for (i in 1:(num-1)){
+    A.x[num-i] = v*q.x[num-i] + v*(1-q.x[num-i])*A.x[num-i+1]
+    add.x[num-i] = 1 + v*(1-q.x[num-i])*add.x[num-i+1] 
+  }
+  tablelife <- cbind(x,q.x,A.x,add.x)
+  return(tablelife)
+}
+```
+
+
+```{r BaseLifeInsPlot, fig.cap=c('(ref:BaseLifeIns)','(ref:BaseLifeIns1)'), echo=FALSE}
+library(ggplot2)
+library(gridExtra)
+
+# Male vs Female
+q.x.male <- q.x.function(male=1)
+A.x.male <- APV(q.x=q.x.male)[,3]
+q.x.female <- q.x.function(male=0)
+A.x.female <- APV(q.x=q.x.female)[,3]
+dataf <- data.frame(cbind(xage,A.x.male, A.x.female))
+p1 <- ggplot(dataf,aes(x=xage, y=A.x.male)) + theme_bw() +
+  geom_line(aes(y = A.x.female), color = "darkred", linetype="twodash") +
+  geom_line(aes(y = A.x.male), color = "darkblue") +
+  ggtitle("Males vs Females") +
+  xlab("Age") + ylab(expression(A[x]))+
+  coord_cartesian(xlim =c(40,110)) #+
+  # scale_y_continuous(trans='log10')
+
+# Smoke vs NonSmoke
+q.x.smoke <- q.x.function(smoke=1)
+A.x.smoke <- APV(q.x=q.x.smoke)[,3]
+q.x.nsmoke <- q.x.function(smoke=0)
+A.x.nsmoke <- APV(q.x=q.x.nsmoke)[,3]
+dataf <- data.frame(cbind(xage,A.x.smoke, A.x.nsmoke))
+p2 <- ggplot(dataf,aes(x=xage, y=A.x.smoke)) + theme_bw() +
+  geom_line(aes(y = A.x.nsmoke), color = "darkred", linetype="twodash") +
+  geom_line(aes(y = A.x.smoke), color = "darkblue") +
+  ggtitle("Smokers versus Nonsmokers") +
+  xlab("Age") + ylab(expression(A[x]))+
+   coord_cartesian(xlim =c(40,110)) #+
+   #scale_y_continuous(trans='log10')
+
+grid.arrange(p1,p2,nrow=1)
+
+```
+
+
+
+```{r BaseLifeAnnPlot, fig.cap='(ref:BaseLifeAnn)', echo=FALSE, fig.width=6, fig.height=4, fig.align = 'center'}
+
+# Perspective
+int.Vec <- seq(0.00,0.06, length.out = 7)
+AnnuityMat.m <- array(0,dim=c(length(int.Vec),length(q.x.male),1))
+AnnuityMat.f <- array(0,dim=c(length(int.Vec),length(q.x.female),1))
+for (ij in 1:length(int.Vec)){
+  AnnuityMat.m[ij,,1] <- APV(q.x=q.x.male, int=int.Vec[ij])[,4]
+  AnnuityMat.f[ij,,1] <- APV(q.x=q.x.female, int=int.Vec[ij])[,4]   
+}
+
+par(mfrow=c(1,2))
+plot(xage,AnnuityMat.m[1,,1], xlab="Age",ylab=expression(paste("male ",ä[x])), col="grey", type = "l", xlim = c(40,80), ylim = c(0,50))
+for (ij in 2:length(int.Vec)){
+lines(xage,AnnuityMat.m[ij,,1], col="grey")
+}
+
+plot(xage,AnnuityMat.f[1,,1], xlab="Age",ylab=expression(paste("female ",ä[x])), col="grey", type = "l", xlim = c(40,80), ylim = c(0,50))
+for (ij in 2:length(int.Vec)){
+lines(xage,AnnuityMat.f[ij,,1], col="grey")
+}
+
+```
+
+
+**Figure 3.10a. Interactive Version of Figure 3.10.** Use the mouse to rotate the figure to see different perspectives. One can use this plot to motivate a type of *multiplicative* effect that an interest rate and age has on an annuity value.
+
+```{r webgl = TRUE, echo = FALSE}
+library(rgl)
+knitr::knit_hooks$set(webgl = rgl::hook_webgl)
+options(rgl.useNULL=TRUE)
+options(digits = 5)
+options(scipen = 5)
+
+clear3d()
+#par3d(mouseMode="trackball")
+bg3d("lightgray", alpha = 0.85)
+intplot = 100*int.Vec
+mfrow3d(1, 2, sharedMouse = TRUE)
+persp3d(intplot, xage, AnnuityMat.m[,,1], theta = 30, phi = 00, col = "green" , ylim = c(40,80),
+      xlab = "i (%)", ylab = "Age", zlab = expression(paste("male ",ä[x])), zlim = c(0,50) )
+next3d()
+persp3d(intplot, xage, AnnuityMat.f[,,1], theta = 180, phi = 00, col = "red", ylim = c(40,80),
+      xlab = "i (%)", ylab = "Age", zlab = expression(paste("female ",ä[x])), zlim = c(0,50) ) 
+```
+
+***
+
+

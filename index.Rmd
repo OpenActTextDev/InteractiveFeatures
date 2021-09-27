@@ -18,7 +18,7 @@ github-repo: https://github.com/OpenActTextDev/InteractiveFeatures
 
 #### Use of *R* as a Tool for Interactive Books and Short Courses {-}
 
-There are many great tools that have been developed to author books (e.g., Word, latex) and interactive short courses (e.g., Wordpress). However, we are using `R` as a tool for writing (books and webpages) through its **markdown** capabilities, including the package `bookdown`. The use of `R` is well known to the actuarial community - we hope that promoting its application for authoring our books and short courses will help in recruiting a broad and sustainable group of authors and other volunteers from the actuarial community.
+There are many great tools that have been developed to author books (e.g., Word, latex) and interactive short courses (e.g., Wordpress). However, we are using `R` as a tool for writing (books and webpages) through its **markdown** capabilities, including the package `bookdown`. The use of `R` is well known in the actuarial community - we hope that promoting its application for authoring our books and short courses will help in recruiting a broad and sustainable group of authors and other volunteers from the actuarial community.
 
  Here is a list of pieces of the project:
 
@@ -48,5 +48,9 @@ Insample2010 <- subset(Insample, Year==2010)
 table(Insample2010$Freq)
 ```
 </div>
+
+#### Why Now? {-}
+
+Describe plans. Mention Astin Academy....
   
 
