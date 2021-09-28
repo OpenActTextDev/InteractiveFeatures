@@ -274,6 +274,9 @@ As mentioned before, we have incorporated a number of animated  graphs in the [S
 ### Three Dimensional Interactive Graphs
 
 
+#### Basic R Graphs
+
+The basic `R` graphs look fine.
 
 ```{r echo = FALSE}
 #  Mortality Calculations
@@ -313,8 +316,51 @@ APV <- function(x=xage, q.x=q.x.female, spotrate=spotrate, int=0.04){
   tablelife <- cbind(x,q.x,A.x,add.x)
   return(tablelife)
 }
+
+# Male vs Female
+q.x.male <- q.x.function(male=1)
+A.x.male <- APV(q.x=q.x.male)[,3]
+q.x.female <- q.x.function(male=0)
+A.x.female <- APV(q.x=q.x.female)[,3]
+dataf <- data.frame(cbind(xage,A.x.male, A.x.female))
 ```
 
+(ref:BaseLifeAnn) **Life Annuities by Age, Interest Rate, and Gender**. Male annuities are in the left-hand panel, those for females are in the right. For both panels, each line corresponds to an interest rates with the top line being $i=0$ and the bottom line being $i=0.06$.
+
+```{r BaseLifeAnnPlot, fig.cap='(ref:BaseLifeAnn)', echo=FALSE, fig.width=6, fig.height=4, fig.align = 'center'}
+
+# Perspective
+int.Vec <- seq(0.00,0.06, length.out = 7)
+AnnuityMat.m <- array(0,dim=c(length(int.Vec),length(q.x.male),1))
+AnnuityMat.f <- array(0,dim=c(length(int.Vec),length(q.x.female),1))
+for (ij in 1:length(int.Vec)){
+  AnnuityMat.m[ij,,1] <- APV(q.x=q.x.male, int=int.Vec[ij])[,4]
+  AnnuityMat.f[ij,,1] <- APV(q.x=q.x.female, int=int.Vec[ij])[,4]   
+}
+
+par(mfrow=c(1,2))
+plot(xage,AnnuityMat.m[1,,1], xlab="Age",ylab=expression(paste("male ",ä[x])), col="grey", type = "l", xlim = c(40,80), ylim = c(0,50), yaxt = "n")
+axis(side=2, las=2) 
+for (ij in 2:length(int.Vec)){
+lines(xage,AnnuityMat.m[ij,,1], col="grey")
+}
+
+plot(xage,AnnuityMat.f[1,,1], xlab="Age",ylab=expression(paste("female ",ä[x])), col="grey", type = "l", xlim = c(40,80), ylim = c(0,50), yaxt = "n")
+axis(side=2, las=2) 
+for (ij in 2:length(int.Vec)){
+lines(xage,AnnuityMat.f[ij,,1], col="grey")
+}
+
+```
+
+
+### GGPLOT
+
+Although those rendered via `ggplot2` are nicer.
+
+(ref:BaseLifeIns) **Life Insurance by Age, Gender, and Smoking Status**. Both panels show expected presented values $A_x$ by age $x$. For the left-hand panel, males are shown as solid blue, females as dark red dashed. For the right-hand panel, smokers are shown as solid blue, nonsmokers as dark red dashed. 
+
+(ref:BaseLifeIns1) testy
 
 ```{r BaseLifeInsPlot, fig.cap=c('(ref:BaseLifeIns)','(ref:BaseLifeIns1)'), echo=FALSE}
 library(ggplot2)
@@ -352,31 +398,9 @@ grid.arrange(p1,p2,nrow=1)
 
 ```
 
+#### Interactive Three dimensional Graphs
 
-
-```{r BaseLifeAnnPlot, fig.cap='(ref:BaseLifeAnn)', echo=FALSE, fig.width=6, fig.height=4, fig.align = 'center'}
-
-# Perspective
-int.Vec <- seq(0.00,0.06, length.out = 7)
-AnnuityMat.m <- array(0,dim=c(length(int.Vec),length(q.x.male),1))
-AnnuityMat.f <- array(0,dim=c(length(int.Vec),length(q.x.female),1))
-for (ij in 1:length(int.Vec)){
-  AnnuityMat.m[ij,,1] <- APV(q.x=q.x.male, int=int.Vec[ij])[,4]
-  AnnuityMat.f[ij,,1] <- APV(q.x=q.x.female, int=int.Vec[ij])[,4]   
-}
-
-par(mfrow=c(1,2))
-plot(xage,AnnuityMat.m[1,,1], xlab="Age",ylab=expression(paste("male ",ä[x])), col="grey", type = "l", xlim = c(40,80), ylim = c(0,50))
-for (ij in 2:length(int.Vec)){
-lines(xage,AnnuityMat.m[ij,,1], col="grey")
-}
-
-plot(xage,AnnuityMat.f[1,,1], xlab="Age",ylab=expression(paste("female ",ä[x])), col="grey", type = "l", xlim = c(40,80), ylim = c(0,50))
-for (ij in 2:length(int.Vec)){
-lines(xage,AnnuityMat.f[ij,,1], col="grey")
-}
-
-```
+We can also embed interactive graphs using [webgl](https://cran.r-project.org/web/packages/rgl/vignettes/WebGL.html).
 
 
 **Figure 3.10a. Interactive Version of Figure 3.10.** Use the mouse to rotate the figure to see different perspectives. One can use this plot to motivate a type of *multiplicative* effect that an interest rate and age has on an annuity value.

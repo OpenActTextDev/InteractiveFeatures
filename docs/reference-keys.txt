@@ -1,5 +1,5 @@
-fig:BaseLifeInsPlot
 fig:BaseLifeAnnPlot
+fig:BaseLifeInsPlot
 why-interactive-features
 active-learning
 Sec:Features
@@ -16,6 +16,9 @@ onedrive
 dynamic-spreadsheets
 Sec:Graphs
 three-dimensional-interactive-graphs
+basic-r-graphs
+ggplot
+interactive-three-dimensional-graphs
 exercises-and-quizzes
 Sec:Exercises
 incorporating-exercises-into-the-textbook

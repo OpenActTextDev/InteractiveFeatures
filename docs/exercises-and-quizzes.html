@@ -272,6 +272,7 @@ var submitAnswer = function() {
 <li class="chapter" data-level="2.3" data-path="code-spreadsheets-and-graphs.html"><a href="code-spreadsheets-and-graphs.html#Sec:Graphs"><i class="fa fa-check"></i><b>2.3</b> More on Graphs</a>
 <ul>
 <li class="chapter" data-level="2.3.1" data-path="code-spreadsheets-and-graphs.html"><a href="code-spreadsheets-and-graphs.html#three-dimensional-interactive-graphs"><i class="fa fa-check"></i><b>2.3.1</b> Three Dimensional Interactive Graphs</a></li>
+<li class="chapter" data-level="2.3.2" data-path="code-spreadsheets-and-graphs.html"><a href="code-spreadsheets-and-graphs.html#ggplot"><i class="fa fa-check"></i><b>2.3.2</b> GGPLOT</a></li>
 </ul></li>
 </ul></li>
 <li class="chapter" data-level="3" data-path="exercises-and-quizzes.html"><a href="exercises-and-quizzes.html"><i class="fa fa-check"></i><b>3</b> Exercises and Quizzes</a>
@@ -446,6 +447,20 @@ gitbook.start({
 });
 </script>
 
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
 </body>
 
 </html>
