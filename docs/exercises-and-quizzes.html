@@ -6,11 +6,10 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>Chapter 3 Exercises and Quizzes | Interactive Features of Open Actuarial Textbooks</title>
   <meta name="description" content="Chapter 3 Exercises and Quizzes | Interactive Features of Open Actuarial Textbooks" />
-  <meta name="generator" content="bookdown 0.21 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.27 and GitBook 2.6.7" />
 
   <meta property="og:title" content="Chapter 3 Exercises and Quizzes | Interactive Features of Open Actuarial Textbooks" />
   <meta property="og:type" content="book" />
-  
   
   
   <meta name="github-repo" content="https://github.com/OpenActTextDev/InteractiveFeatures" />
@@ -32,8 +31,8 @@
   
 <link rel="prev" href="code-spreadsheets-and-graphs.html"/>
 
-<script src="libs/header-attrs-2.10/header-attrs.js"></script>
-<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
@@ -49,24 +48,561 @@
 
 
 
+<link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
+<link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
+<script src="libs/htmlwidgets-1.5.4/htmlwidgets.js"></script>
+<script src="libs/rglWebGL-binding-0.109.2/rglWebGL.js"></script>
+<link href="libs/rglwidgetClass-0.109.2/rgl.css" rel="stylesheet" />
+<script src="libs/rglwidgetClass-0.109.2/rglClass.src.js"></script>
+<script src="libs/rglwidgetClass-0.109.2/utils.src.js"></script>
+<script src="libs/rglwidgetClass-0.109.2/buffer.src.js"></script>
+<script src="libs/rglwidgetClass-0.109.2/subscenes.src.js"></script>
+<script src="libs/rglwidgetClass-0.109.2/shaders.src.js"></script>
+<script src="libs/rglwidgetClass-0.109.2/textures.src.js"></script>
+<script src="libs/rglwidgetClass-0.109.2/projection.src.js"></script>
+<script src="libs/rglwidgetClass-0.109.2/mouse.src.js"></script>
+<script src="libs/rglwidgetClass-0.109.2/init.src.js"></script>
+<script src="libs/rglwidgetClass-0.109.2/pieces.src.js"></script>
+<script src="libs/rglwidgetClass-0.109.2/draw.src.js"></script>
+<script src="libs/rglwidgetClass-0.109.2/controls.src.js"></script>
+<script src="libs/rglwidgetClass-0.109.2/selection.src.js"></script>
+<script src="libs/rglwidgetClass-0.109.2/rglTimer.src.js"></script>
+<script src="libs/rglwidgetClass-0.109.2/pretty.src.js"></script>
+<script src="libs/rglwidgetClass-0.109.2/axes.src.js"></script>
+<script src="libs/rglwidgetClass-0.109.2/animation.src.js"></script>
+<script type = "text/plain" id = "rgl-vertex-shader">
+#line 2 1
+// File 1 is the vertex shader
+#ifdef GL_ES
+#ifdef GL_FRAGMENT_PRECISION_HIGH
+precision highp float;
+#else
+precision mediump float;
+#endif
+#endif
 
-<script src="libs/htmlwidgets-1.5.3/htmlwidgets.js"></script>
-<script src="libs/rglWebGL-binding-0.106.8/rglWebGL.js"></script>
-<link href="libs/rglwidgetClass-0.106.8/rgl.css" rel="stylesheet" />
-<script src="libs/rglwidgetClass-0.106.8/rglClass.src.js"></script>
-<script src="libs/rglwidgetClass-0.106.8/utils.src.js"></script>
-<script src="libs/rglwidgetClass-0.106.8/subscenes.src.js"></script>
-<script src="libs/rglwidgetClass-0.106.8/shaders.src.js"></script>
-<script src="libs/rglwidgetClass-0.106.8/textures.src.js"></script>
-<script src="libs/rglwidgetClass-0.106.8/projection.src.js"></script>
-<script src="libs/rglwidgetClass-0.106.8/mouse.src.js"></script>
-<script src="libs/rglwidgetClass-0.106.8/init.src.js"></script>
-<script src="libs/rglwidgetClass-0.106.8/pieces.src.js"></script>
-<script src="libs/rglwidgetClass-0.106.8/draw.src.js"></script>
-<script src="libs/rglwidgetClass-0.106.8/controls.src.js"></script>
-<script src="libs/rglwidgetClass-0.106.8/selection.src.js"></script>
-<script src="libs/rglwidgetClass-0.106.8/rglTimer.src.js"></script>
-<script src="libs/CanvasMatrix4-0.106.8/CanvasMatrix.src.js"></script>
+attribute vec3 aPos;
+attribute vec4 aCol;
+uniform mat4 mvMatrix;
+uniform mat4 prMatrix;
+varying vec4 vCol;
+varying vec4 vPosition;
+
+#ifdef NEEDS_VNORMAL
+attribute vec3 aNorm;
+uniform mat4 normMatrix;
+varying vec4 vNormal;
+#endif
+
+#if defined(HAS_TEXTURE) || defined (IS_TEXT)
+attribute vec2 aTexcoord;
+varying vec2 vTexcoord;
+#endif
+
+#ifdef FIXED_SIZE
+uniform vec3 textScale;
+#endif
+
+#ifdef FIXED_QUADS
+attribute vec3 aOfs;
+#endif
+
+#ifdef IS_TWOSIDED
+#ifdef HAS_NORMALS
+varying float normz;
+uniform mat4 invPrMatrix;
+#else
+attribute vec3 aPos1;
+attribute vec3 aPos2;
+varying float normz;
+#endif
+#endif // IS_TWOSIDED
+
+#ifdef FAT_LINES
+attribute vec3 aNext;
+attribute vec2 aPoint;
+varying vec2 vPoint;
+varying float vLength;
+uniform float uAspect;
+uniform float uLwd;
+#endif
+
+
+void main(void) {
+  
+#ifndef IS_BRUSH
+#if defined(NCLIPPLANES) || !defined(FIXED_QUADS) || defined(HAS_FOG)
+  vPosition = mvMatrix * vec4(aPos, 1.);
+#endif
+  
+#ifndef FIXED_QUADS
+  gl_Position = prMatrix * vPosition;
+#endif
+#endif // !IS_BRUSH
+  
+#ifdef IS_POINTS
+  gl_PointSize = POINTSIZE;
+#endif
+  
+  vCol = aCol;
+  
+#ifdef NEEDS_VNORMAL
+  vNormal = normMatrix * vec4(-aNorm, dot(aNorm, aPos));
+#endif
+  
+#ifdef IS_TWOSIDED
+#ifdef HAS_NORMALS
+  /* normz should be calculated *after* projection */
+  normz = (invPrMatrix*vNormal).z;
+#else
+  vec4 pos1 = prMatrix*(mvMatrix*vec4(aPos1, 1.));
+  pos1 = pos1/pos1.w - gl_Position/gl_Position.w;
+  vec4 pos2 = prMatrix*(mvMatrix*vec4(aPos2, 1.));
+  pos2 = pos2/pos2.w - gl_Position/gl_Position.w;
+  normz = pos1.x*pos2.y - pos1.y*pos2.x;
+#endif
+#endif // IS_TWOSIDED
+  
+#ifdef NEEDS_VNORMAL
+  vNormal = vec4(normalize(vNormal.xyz/vNormal.w), 1);
+#endif
+  
+#if defined(HAS_TEXTURE) || defined(IS_TEXT)
+  vTexcoord = aTexcoord;
+#endif
+  
+#if defined(FIXED_SIZE) && !defined(ROTATING)
+  vec4 pos = prMatrix * mvMatrix * vec4(aPos, 1.);
+  pos = pos/pos.w;
+  gl_Position = pos + vec4(aOfs*textScale, 0.);
+#endif
+  
+#if defined(IS_SPRITES) && !defined(FIXED_SIZE)
+  vec4 pos = mvMatrix * vec4(aPos, 1.);
+  pos = pos/pos.w + vec4(aOfs,  0.);
+  gl_Position = prMatrix*pos;
+#endif
+  
+#ifdef FAT_LINES
+  /* This code was inspired by Matt Deslauriers' code in 
+   https://mattdesl.svbtle.com/drawing-lines-is-hard */
+  vec2 aspectVec = vec2(uAspect, 1.0);
+  mat4 projViewModel = prMatrix * mvMatrix;
+  vec4 currentProjected = projViewModel * vec4(aPos, 1.0);
+  currentProjected = currentProjected/currentProjected.w;
+  vec4 nextProjected = projViewModel * vec4(aNext, 1.0);
+  vec2 currentScreen = currentProjected.xy * aspectVec;
+  vec2 nextScreen = (nextProjected.xy / nextProjected.w) * aspectVec;
+  float len = uLwd;
+  vec2 dir = vec2(1.0, 0.0);
+  vPoint = aPoint;
+  vLength = length(nextScreen - currentScreen)/2.0;
+  vLength = vLength/(vLength + len);
+  if (vLength > 0.0) {
+    dir = normalize(nextScreen - currentScreen);
+  }
+  vec2 normal = vec2(-dir.y, dir.x);
+  dir.x /= uAspect;
+  normal.x /= uAspect;
+  vec4 offset = vec4(len*(normal*aPoint.x*aPoint.y - dir), 0.0, 0.0);
+  gl_Position = currentProjected + offset;
+#endif
+  
+#ifdef IS_BRUSH
+  gl_Position = vec4(aPos, 1.);
+#endif
+}
+</script>
+<script type = "text/plain" id = "rgl-fragment-shader">
+#line 2 2
+// File 2 is the fragment shader
+#ifdef GL_ES
+#ifdef GL_FRAGMENT_PRECISION_HIGH
+precision highp float;
+#else
+precision mediump float;
+#endif
+#endif
+varying vec4 vCol; // carries alpha
+varying vec4 vPosition;
+#if defined(HAS_TEXTURE) || defined (IS_TEXT)
+varying vec2 vTexcoord;
+uniform sampler2D uSampler;
+#endif
+
+#ifdef HAS_FOG
+uniform int uFogMode;
+uniform vec3 uFogColor;
+uniform vec4 uFogParms;
+#endif
+
+#if defined(IS_LIT) && !defined(FIXED_QUADS)
+varying vec4 vNormal;
+#endif
+
+#if NCLIPPLANES > 0
+uniform vec4 vClipplane[NCLIPPLANES];
+#endif
+
+#if NLIGHTS > 0
+uniform mat4 mvMatrix;
+#endif
+
+#ifdef IS_LIT
+uniform vec3 emission;
+uniform float shininess;
+#if NLIGHTS > 0
+uniform vec3 ambient[NLIGHTS];
+uniform vec3 specular[NLIGHTS]; // light*material
+uniform vec3 diffuse[NLIGHTS];
+uniform vec3 lightDir[NLIGHTS];
+uniform bool viewpoint[NLIGHTS];
+uniform bool finite[NLIGHTS];
+#endif
+#endif // IS_LIT
+
+#ifdef IS_TWOSIDED
+uniform bool front;
+varying float normz;
+#endif
+
+#ifdef FAT_LINES
+varying vec2 vPoint;
+varying float vLength;
+#endif
+
+void main(void) {
+  vec4 fragColor;
+#ifdef FAT_LINES
+  vec2 point = vPoint;
+  bool neg = point.y < 0.0;
+  point.y = neg ? (point.y + vLength)/(1.0 - vLength) :
+                 -(point.y - vLength)/(1.0 - vLength);
+#if defined(IS_TRANSPARENT) && defined(IS_LINESTRIP)
+  if (neg && length(point) <= 1.0) discard;
+#endif
+  point.y = min(point.y, 0.0);
+  if (length(point) > 1.0) discard;
+#endif // FAT_LINES
+  
+#ifdef ROUND_POINTS
+  vec2 coord = gl_PointCoord - vec2(0.5);
+  if (length(coord) > 0.5) discard;
+#endif
+  
+#if NCLIPPLANES > 0
+  for (int i = 0; i < NCLIPPLANES; i++)
+    if (dot(vPosition, vClipplane[i]) < 0.0) discard;
+#endif
+    
+#ifdef FIXED_QUADS
+    vec3 n = vec3(0., 0., 1.);
+#elif defined(IS_LIT)
+    vec3 n = normalize(vNormal.xyz);
+#endif
+    
+#ifdef IS_TWOSIDED
+    if ((normz <= 0.) != front) discard;
+#endif
+    
+#ifdef IS_LIT
+    vec3 eye = normalize(-vPosition.xyz/vPosition.w);
+    vec3 lightdir;
+    vec4 colDiff;
+    vec3 halfVec;
+    vec4 lighteffect = vec4(emission, 0.);
+    vec3 col;
+    float nDotL;
+#ifdef FIXED_QUADS
+    n = -faceforward(n, n, eye);
+#endif
+    
+#if NLIGHTS > 0
+    for (int i=0;i<NLIGHTS;i++) {
+      colDiff = vec4(vCol.rgb * diffuse[i], vCol.a);
+      lightdir = lightDir[i];
+      if (!viewpoint[i])
+        lightdir = (mvMatrix * vec4(lightdir, 1.)).xyz;
+      if (!finite[i]) {
+        halfVec = normalize(lightdir + eye);
+      } else {
+        lightdir = normalize(lightdir - vPosition.xyz/vPosition.w);
+        halfVec = normalize(lightdir + eye);
+      }
+      col = ambient[i];
+      nDotL = dot(n, lightdir);
+      col = col + max(nDotL, 0.) * colDiff.rgb;
+      col = col + pow(max(dot(halfVec, n), 0.), shininess) * specular[i];
+      lighteffect = lighteffect + vec4(col, colDiff.a);
+    }
+#endif
+    
+#else // not IS_LIT
+    vec4 colDiff = vCol;
+    vec4 lighteffect = colDiff;
+#endif
+    
+#ifdef IS_TEXT
+    vec4 textureColor = lighteffect*texture2D(uSampler, vTexcoord);
+#endif
+    
+#ifdef HAS_TEXTURE
+#ifdef TEXTURE_rgb
+    vec4 textureColor = lighteffect*vec4(texture2D(uSampler, vTexcoord).rgb, 1.);
+#endif
+    
+#ifdef TEXTURE_rgba
+    vec4 textureColor = lighteffect*texture2D(uSampler, vTexcoord);
+#endif
+    
+#ifdef TEXTURE_alpha
+    vec4 textureColor = texture2D(uSampler, vTexcoord);
+    float luminance = dot(vec3(1.,1.,1.), textureColor.rgb)/3.;
+    textureColor =  vec4(lighteffect.rgb, lighteffect.a*luminance);
+#endif
+    
+#ifdef TEXTURE_luminance
+    vec4 textureColor = vec4(lighteffect.rgb*dot(texture2D(uSampler, vTexcoord).rgb, vec3(1.,1.,1.))/3., lighteffect.a);
+#endif
+    
+#ifdef TEXTURE_luminance_alpha
+    vec4 textureColor = texture2D(uSampler, vTexcoord);
+    float luminance = dot(vec3(1.,1.,1.),textureColor.rgb)/3.;
+    textureColor = vec4(lighteffect.rgb*luminance, lighteffect.a*textureColor.a);
+#endif
+    
+    fragColor = textureColor;
+
+#elif defined(IS_TEXT)
+    if (textureColor.a < 0.1)
+      discard;
+    else
+      fragColor = textureColor;
+#else
+    fragColor = lighteffect;
+#endif // HAS_TEXTURE
+    
+#ifdef HAS_FOG
+    // uFogParms elements: x = near, y = far, z = fogscale, w = (1-sin(FOV/2))/(1+sin(FOV/2))
+    // In Exp and Exp2: use density = density/far
+    // fogF will be the proportion of fog
+    // Initialize it to the linear value
+    float fogF;
+    if (uFogMode > 0) {
+      fogF = (uFogParms.y - vPosition.z/vPosition.w)/(uFogParms.y - uFogParms.x);
+      if (uFogMode > 1)
+        fogF = mix(uFogParms.w, 1.0, fogF);
+      fogF = fogF*uFogParms.z;
+      if (uFogMode == 2)
+        fogF = 1.0 - exp(-fogF);
+      // Docs are wrong: use (density*c)^2, not density*c^2
+      // https://gitlab.freedesktop.org/mesa/mesa/-/blob/master/src/mesa/swrast/s_fog.c#L58
+      else if (uFogMode == 3)
+        fogF = 1.0 - exp(-fogF*fogF);
+      fogF = clamp(fogF, 0.0, 1.0);
+      gl_FragColor = vec4(mix(fragColor.rgb, uFogColor, fogF), fragColor.a);
+    } else gl_FragColor = fragColor;
+#else
+    gl_FragColor = fragColor;
+#endif // HAS_FOG
+    
+}
+</script>
+<script src="libs/CanvasMatrix4-0.109.2/CanvasMatrix.src.js"></script>
+
+<!-- Mathjax Version 2-->
+<script type='text/x-mathjax-config'>
+		MathJax.Hub.Config({
+			extensions: ['tex2jax.js'],
+			jax: ['input/TeX', 'output/HTML-CSS'],
+			tex2jax: {
+				inlineMath: [ ['$','$'], ['\\(','\\)'] ],
+				displayMath: [ ['$$','$$'], ['\\[','\\]'] ],
+				processEscapes: true
+			},
+			'HTML-CSS': { availableFonts: ['TeX'] }
+		});
+</script>
+
+<script type="text/javascript"  src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/MathJax.js"> </script>
+
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script type="text/javascript" src="https://unpkg.com/survey-jquery/survey.jquery.min.js"></script>
+<link href="https://unpkg.com/survey-jquery/modern.min.css" type="text/css" rel="stylesheet">
+<script src="https://unpkg.com/showdown/dist/showdown.min.js"></script>
+
+
+<script>
+function markdownConverterEWF() {  
+//Create showdown markdown converter
+var converter = new showdown.Converter();
+converter.setOption('ghCompatibleHeaderId', true);
+survey
+    .onTextMarkdown
+    .add(function (survey, options) {
+        //convert the markdown text to html
+        var str = converter.makeHtml(options.text);
+        //remove root paragraphs <p></p>
+        str = str.substring(3);
+        str = str.substring(0, str.length - 4);
+        //set html
+        options.html = str;
+        MathJax.Hub.Queue(['Typeset',MathJax.Hub, 'options']);
+    });  
+};
+
+// Quiz Header info
+const jsonHeader = { 
+    showProgressBar: "bottom",
+    showTimerPanel: "none",
+    maxTimeToFinishPage: 10000,
+    maxTimeToFinish: 25000,
+    firstPageIsStarted: true,
+    startSurveyText: "Start Quiz" //,
+//    title: "Does This Make Sense?"
+}
+
+
+// One and Two question quizzes
+function jsonSummary1EWF(json) {  
+let jsonEnd1 = { 
+completedHtml: 
+json["pages"][1]["questions"][0]["name"]+ "<br>"+
+"<i>Question: </i>"+json["pages"][1]["questions"][0]["title"]+"<br>"+
+"<i>Answer: </i>"+json["pages"][1]["questions"][0]["correctAnswer"]
+};  
+return jsonEnd1;
+};
+
+
+function jsonSummary2EWF(json) {  
+let jsonEnd2 = { 
+completedHtml: 
+json["pages"][1]["questions"][0]["name"]+ "<br>"+
+"<i>Question: </i>"+json["pages"][1]["questions"][0]["title"]+"<br>"+
+"<i>Answer: </i>"+json["pages"][1]["questions"][0]["correctAnswer"]
++"<br>"+
+json["pages"][2]["questions"][0]["name"]+ "<br>"+
+"<i>Question: </i>"+json["pages"][2]["questions"][0]["title"]+"<br>"+
+"<i>Answer: </i>"+json["pages"][2]["questions"][0]["correctAnswer"]
+};  
+return jsonEnd2;
+};
+
+// Three, four, and five question quizzes
+function jsonSummary3EWF(json) {  
+let jsonEnd3 = { 
+completedHtml: 
+json["pages"][1]["questions"][0]["name"]+ "<br>"+
+"<i>Question: </i>"+json["pages"][1]["questions"][0]["title"]+"<br>"+
+"<i>Answer: </i>"+json["pages"][1]["questions"][0]["correctAnswer"]
++"<br>"+
+json["pages"][2]["questions"][0]["name"]+ "<br>"+
+"<i>Question: </i>"+json["pages"][2]["questions"][0]["title"]+"<br>"+
+"<i>Answer: </i>"+json["pages"][2]["questions"][0]["correctAnswer"]
++"<br>"+
+json["pages"][3]["questions"][0]["name"]+ "<br>"+
+"<i>Question: </i>"+json["pages"][3]["questions"][0]["title"]+"<br>"+
+"<i>Answer: </i>"+json["pages"][3]["questions"][0]["correctAnswer"]
+};  
+return jsonEnd3;
+};
+
+function jsonSummary4EWF(json) {  
+jsonEnd4 = jsonSummary3EWF(json);
+jsonEnd4.completedHtml = jsonEnd4.completedHtml +  
+"<br>"+
+json["pages"][4]["questions"][0]["name"]+ "<br>"+
+"<i>Question: </i>"+json["pages"][4]["questions"][0]["title"]+"<br>"+
+"<i>Answer: </i>"+json["pages"][4]["questions"][0]["correctAnswer"]
+;  
+return jsonEnd4;
+};
+
+function jsonSummary5EWF(json) {  
+jsonEnd5 = jsonSummary4EWF(json);
+jsonEnd5.completedHtml = jsonEnd5.completedHtml +  
+"<br>"+
+json["pages"][5]["questions"][0]["name"]+ "<br>"+
+"<i>Question: </i>"+json["pages"][5]["questions"][0]["title"]+"<br>"+
+"<i>Answer: </i>"+json["pages"][5]["questions"][0]["correctAnswer"]
+;  
+return jsonEnd5;
+};
+
+function jsonSummary6EWF(json) {  
+jsonEnd6 = jsonSummary5EWF(json);
+jsonEnd6.completedHtml = jsonEnd6.completedHtml +  
+"<br>"+
+json["pages"][6]["questions"][0]["name"]+ "<br>"+
+"<i>Question: </i>"+json["pages"][6]["questions"][0]["title"]+"<br>"+
+"<i>Answer: </i>"+json["pages"][6]["questions"][0]["correctAnswer"]
+;  
+return jsonEnd6;
+};
+
+function jsonSummary7EWF(json) {  
+jsonEnd7 = jsonSummary6EWF(json);
+jsonEnd7.completedHtml = jsonEnd7.completedHtml +  
+"<br>"+
+json["pages"][7]["questions"][0]["name"]+ "<br>"+
+"<i>Question: </i>"+json["pages"][7]["questions"][0]["title"]+"<br>"+
+"<i>Answer: </i>"+json["pages"][7]["questions"][0]["correctAnswer"]
+;  
+return jsonEnd7;
+};
+
+function jsonSummary8EWF(json) {  
+jsonEnd8 = jsonSummary7EWF(json);
+jsonEnd8.completedHtml = jsonEnd8.completedHtml +  
+"<br>"+
+json["pages"][8]["questions"][0]["name"]+ "<br>"+
+"<i>Question: </i>"+json["pages"][8]["questions"][0]["title"]+"<br>"+
+"<i>Answer: </i>"+json["pages"][8]["questions"][0]["correctAnswer"]
+;  
+return jsonEnd8;
+};
+
+function jsonSummary9EWF(json) {  
+jsonEnd9 = jsonSummary8EWF(json);
+jsonEnd9.completedHtml = jsonEnd9.completedHtml +  
+"<br>"+
+json["pages"][9]["questions"][0]["name"]+ "<br>"+
+"<i>Question: </i>"+json["pages"][9]["questions"][0]["title"]+"<br>"+
+"<i>Answer: </i>"+json["pages"][9]["questions"][0]["correctAnswer"]
+;  
+return jsonEnd9;
+};
+
+
+function jsonSummary10EWF(json) {  
+jsonEnd10 = jsonSummary9EWF(json);
+jsonEnd10.completedHtml = jsonEnd10.completedHtml +  
+"<br>"+
+json["pages"][10]["questions"][0]["name"]+ "<br>"+
+"<i>Question: </i>"+json["pages"][10]["questions"][0]["title"]+"<br>"+
+"<i>Answer: </i>"+json["pages"][10]["questions"][0]["correctAnswer"]
+;  
+return jsonEnd10;
+};
+
+
+function jsonSummary11EWF(json) {  
+jsonEnd11 = jsonSummary10EWF(json);
+jsonEnd11.completedHtml = jsonEnd11.completedHtml +  
+"<br>"+
+json["pages"][11]["questions"][0]["name"]+ "<br>"+
+"<i>Question: </i>"+json["pages"][11]["questions"][0]["title"]+"<br>"+
+"<i>Answer: </i>"+json["pages"][11]["questions"][0]["correctAnswer"]
+;  
+return jsonEnd11;
+};
+
+
+
+</script>  
+<!-- This completes the code for the quizzes -->
 
 <!-- Various toggle functions used throughout --> 
 <script language="javascript">
@@ -229,6 +765,7 @@ var submitAnswer = function() {
 
 
 
+
 <link rel="stylesheet" href="style.css" type="text/css" />
 </head>
 
@@ -309,45 +846,45 @@ var submitAnswer = function() {
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="exercises-and-quizzes" class="section level1" number="3">
-<h1><span class="header-section-number">Chapter 3</span> Exercises and Quizzes</h1>
-<div id="Sec:Exercises" class="section level2" number="3.1">
-<h2><span class="header-section-number">3.1</span> Exercises</h2>
-<div id="incorporating-exercises-into-the-textbook" class="section level3" number="3.1.1">
-<h3><span class="header-section-number">3.1.1</span> Incorporating Exercises into the Textbook</h3>
+<div id="exercises-and-quizzes" class="section level1 hasAnchor" number="3">
+<h1><span class="header-section-number">Chapter 3</span> Exercises and Quizzes<a href="exercises-and-quizzes.html#exercises-and-quizzes" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<div id="Sec:Exercises" class="section level2 hasAnchor" number="3.1">
+<h2><span class="header-section-number">3.1</span> Exercises<a href="exercises-and-quizzes.html#Sec:Exercises" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="incorporating-exercises-into-the-textbook" class="section level3 hasAnchor" number="3.1.1">
+<h3><span class="header-section-number">3.1.1</span> Incorporating Exercises into the Textbook<a href="exercises-and-quizzes.html#incorporating-exercises-into-the-textbook" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>Users expect to see exercises in a textbook. For <em>Loss Data Analytics</em>, we have many sources and types of exercises that we can draw upon. The issue is deciding upon the type to re-inforce the emphasis of the book.</p>
 <p>Currently, the book features almost as many different exercise types as there are authors. Some chapters have no exercises, others have an extensive amount. (See also some questions in a <a href="https://github.com/ewfrees/InteractiveLDA/tree/master/FutureWork">Future Work</a> folder on this site.)</p>
 <p>These differing viewpoints are also reflected in the examples in the book. To illustrative, some chapters focus on mathematical/statistical developments, some on data analytic aspects, some on business content. This is the good and bad associated with a heterogenous collection of authors.</p>
 <p>We can reduce the effects of this heterogeneity by providing a large pool of exercises. Some may exist outside of the book. With a large pool of exercises, users (teachers) can draw upon the subset that reflects their area of interests.</p>
 </div>
-<div id="wordpress-exercises" class="section level3" number="3.1.2">
-<h3><span class="header-section-number">3.1.2</span> Wordpress Exercises</h3>
+<div id="wordpress-exercises" class="section level3 hasAnchor" number="3.1.2">
+<h3><span class="header-section-number">3.1.2</span> Wordpress Exercises<a href="exercises-and-quizzes.html#wordpress-exercises" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>Here is a series of exercises that guide the viewer through some of the theoretical foundations of <em>Loss Data Analytics</em>. Each tutorial is based on one or more questions from the professional actuarial examinations – typically the Society of Actuaries short term actuarial mathematics exam that used to be known as <em>Exam C</em>. These exercises are coded using <strong>Wordpress</strong>.</p>
 <p>Based on Google Analytics data, this approach is popular. If we want to continue to develop this line of throught, one approach is to explore bringing these exercises into the <code>R</code> <strong>Bookdown</strong> environment.</p>
-<div id="frequency-modeling" class="section level4" number="3.1.2.1">
-<h4><span class="header-section-number">3.1.2.1</span> Frequency Modeling</h4>
+<div id="frequency-modeling" class="section level4 hasAnchor" number="3.1.2.1">
+<h4><span class="header-section-number">3.1.2.1</span> Frequency Modeling<a href="exercises-and-quizzes.html#frequency-modeling" class="anchor-section" aria-label="Anchor link to header"></a></h4>
 <p style="text-align: center;">
 <a href="https://www.ssc.wisc.edu/~jfrees/loss-data-analytics/loss-data-analytics-problems/">Frequency Distribution Guided Tutorials</a>
 </p>
 </div>
-<div id="modeling-loss-severity" class="section level4" number="3.1.2.2">
-<h4><span class="header-section-number">3.1.2.2</span> Modeling Loss Severity</h4>
+<div id="modeling-loss-severity" class="section level4 hasAnchor" number="3.1.2.2">
+<h4><span class="header-section-number">3.1.2.2</span> Modeling Loss Severity<a href="exercises-and-quizzes.html#modeling-loss-severity" class="anchor-section" aria-label="Anchor link to header"></a></h4>
 <p style="text-align: center;">
 <a href="http://www.ssc.wisc.edu/~jfrees/loss-data-analytics/chapter-3-modeling-loss-severity/loss-data-analytics-severity-problems/">Severity Distribution Guided Tutorials</a>
 </p>
 </div>
 </div>
-<div id="incorporating-datacamp-exercises-into-the-short-course" class="section level3" number="3.1.3">
-<h3><span class="header-section-number">3.1.3</span> Incorporating Datacamp Exercises into the Short Course</h3>
+<div id="incorporating-datacamp-exercises-into-the-short-course" class="section level3 hasAnchor" number="3.1.3">
+<h3><span class="header-section-number">3.1.3</span> Incorporating Datacamp Exercises into the Short Course<a href="exercises-and-quizzes.html#incorporating-datacamp-exercises-into-the-short-course" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>Describe short course exercises here …</p>
 <p>There are a variety of ways of learning coding procedures interactively. One option is <a href="https://www.datacamp.com">Datacamp</a>. In particular, they have developed an <code>R</code> package, <a href="https://support.datacamp.com/hc/en-us/articles/360007749853-What-is-DataCamp-Light-">Datacamp Light</a>. This allows us to integrate this interactive approach into our authoring system. <a href="https://ewfreesres.github.io/RegressModel/index.html">Here</a> is a link to an online regression tutorial done using this approach. There are a few little technical details but we think these are now ironed out. This is a promising option that will help make the book special.</p>
 </div>
 </div>
-<div id="Sec:EndSectionQuizzes" class="section level2" number="3.2">
-<h2><span class="header-section-number">3.2</span> End of Section Quizzes</h2>
+<div id="Sec:EndSectionQuizzes" class="section level2 hasAnchor" number="3.2">
+<h2><span class="header-section-number">3.2</span> End of Section Quizzes<a href="exercises-and-quizzes.html#Sec:EndSectionQuizzes" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>The more straight-forward aspect is the inclusion of end of the section quizzes. Unlike exercises, these are designed to be low-level, formative assessment tools that a person can use to assess whether there is some comprehension of material just read. Here are two end of section quizzes from Chapter 1, just to provide a flavor. More are available in <a href="https://openacttexts.github.io/Loss-Data-Analytics/index.html"><em>Loss Data Analytics</em></a>.</p>
-<div id="section-1.1" class="section level3" number="3.2.1">
-<h3><span class="header-section-number">3.2.1</span> Section 1.1</h3>
+<div id="section-1.1" class="section level3 hasAnchor" number="3.2.1">
+<h3><span class="header-section-number">3.2.1</span> Section 1.1<a href="exercises-and-quizzes.html#section-1.1" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <script src="https://cdn.datacamp.com/datacamp-light-latest.min.js"></script>
 <div id="surveyElement11">
 
@@ -367,8 +904,8 @@ var submitAnswer = function() {
 <script type="text/javascript" src="./Quizzes/QuizJavascript/Quiz11.js">
 </script>
 </div>
-<div id="section-1.2" class="section level3" number="3.2.2">
-<h3><span class="header-section-number">3.2.2</span> Section 1.2</h3>
+<div id="section-1.2" class="section level3 hasAnchor" number="3.2.2">
+<h3><span class="header-section-number">3.2.2</span> Section 1.2<a href="exercises-and-quizzes.html#section-1.2" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <script src="https://cdn.datacamp.com/datacamp-light-latest.min.js"></script>
 <div id="surveyElement12">
 
@@ -401,7 +938,6 @@ var submitAnswer = function() {
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
-<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
 <script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
 <script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
 <script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
@@ -420,6 +956,7 @@ gitbook.start({
 "weibo": false,
 "instapaper": false,
 "vk": false,
+"whatsapp": false,
 "all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
 },
 "fontsettings": {
@@ -440,6 +977,10 @@ gitbook.start({
 "text": null
 },
 "download": null,
+"search": {
+"engine": "fuse",
+"options": null
+},
 "toc": {
 "collapse": "subsection"
 }

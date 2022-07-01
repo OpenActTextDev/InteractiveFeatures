@@ -4,18 +4,18 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>Chapter 1 Why Interactive Features? | Interactive Features of Open Actuarial Textbooks</title>
-  <meta name="description" content="Chapter 1 Why Interactive Features? | Interactive Features of Open Actuarial Textbooks" />
+  <title>Page not found | Interactive Features of Open Actuarial Textbooks</title>
+  <meta name="description" content="Page not found | Interactive Features of Open Actuarial Textbooks" />
   <meta name="generator" content="bookdown 0.27 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="Chapter 1 Why Interactive Features? | Interactive Features of Open Actuarial Textbooks" />
+  <meta property="og:title" content="Page not found | Interactive Features of Open Actuarial Textbooks" />
   <meta property="og:type" content="book" />
   
   
   <meta name="github-repo" content="https://github.com/OpenActTextDev/InteractiveFeatures" />
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Chapter 1 Why Interactive Features? | Interactive Features of Open Actuarial Textbooks" />
+  <meta name="twitter:title" content="Page not found | Interactive Features of Open Actuarial Textbooks" />
   
   
   
@@ -29,8 +29,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-<link rel="prev" href="index.html"/>
-<link rel="next" href="code-spreadsheets-and-graphs.html"/>
+
+
 <script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
@@ -846,70 +846,19 @@ var submitAnswer = function() {
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="why-interactive-features" class="section level1 hasAnchor" number="1">
-<h1><span class="header-section-number">Chapter 1</span> Why Interactive Features?<a href="why-interactive-features.html#why-interactive-features" class="anchor-section" aria-label="Anchor link to header"></a></h1>
-<div id="active-learning" class="section level2 hasAnchor" number="1.1">
-<h2><span class="header-section-number">1.1</span> Active Learning<a href="why-interactive-features.html#active-learning" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p><a href="https://cei.umn.edu/support-services/tutorials/what-active-learning">Active Learning</a> is a phrase used by educators to mean an approach to classroom activities in which students engage the material they study through reading, writing, talking, listening, and reflecting. In contrast, a traditional instructor is sometimes referred to as the “sage on the stage,” where the teacher does most of the talking and students are passive.</p>
-<p>Proponents of active learning suggest augmenting classroom activities by talking and listening in small groups, and having students write, read, and reflect on material. A variety of classroom tools have been forwarded for engaging students including discussion of scenarios and case studies, one minute papers, “shared brainstorming,” and the like. For more details, see a site sponsored by the University of Minnesota that provides <a href="https://cei.umn.edu/active-learning">a list of basic active learning activities</a> or a <a href="https://cft.vanderbilt.edu/active-learning/">summary</a> from the University of Vanderbilt.</p>
-<p>Active learning is typically used in reference to classroom activities but it can also refer to textbooks. In our implementation of <em>Loss Data Analytics</em>, we propose to include a number of <strong>interactive</strong> features that will allow a participant to actively explore the content, described in Section <a href="why-interactive-features.html#Sec:Features">1.2</a>.</p>
-<p>When taken outside of the classroom, the concept of active learning promotes one of the <a href="http://www.hewlett.org/programs/education/deeper-learning">deeper learning</a> goals set forth by some educational leaders: <em>The ability to learn how to learn independently</em>. We hope that instructors will be able to use the online text so that students can discover how to monitor and direct their own work and learning.</p>
-</div>
-<div id="Sec:Features" class="section level2 hasAnchor" number="1.2">
-<h2><span class="header-section-number">1.2</span> Open Actuarial Textbooks Interactive Features<a href="why-interactive-features.html#Sec:Features" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p>On the one hand, interactive features will help keep readers engaged as they explore the text. On the other hand, more is not necessarily better. Readers can be easily overwhelmed with a plethora of options and not appreciated the pedagogic approach with too many alternatives. So, we need to be thoughtful as we introduce interactive features.</p>
-<p>Both the book and the short course are authored using the <code>R</code> <strong>Bookdown</strong> package and hosted on Github. This allows to readily incorporate several .html, .css, and javascripts tools to enchance the interactivity.</p>
-<div id="what-we-have-textbook" class="section level3 hasAnchor" number="1.2.1">
-<h3><span class="header-section-number">1.2.1</span> What we Have – Textbook<a href="why-interactive-features.html#what-we-have-textbook" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<p>In <a href="https://openacttexts.github.io/Loss-Data-Analytics/index.html"><em>Loss Data Analytics</em></a>, we include:</p>
-<p><strong>Layered Content.</strong> One easy feature that we have already adopted extensively is to layer the content through the use of <em>Show/Hide</em> labels or text. Clicking on text that is bold, in different fonts, as well as color, allows viewers to reveal and to hide selected material. We use:</p>
-<ul>
-<li>Statistical (<code>R</code>) code available via <em>Show/Hide</em> labels</li>
-<li>Exercise Solutions available via <em>Show/Hide</em> labels</li>
-<li>Short demonstrations (“snippets”) of mathematics available via <em>Show/Hide</em> labels</li>
-</ul>
-<p><strong>Online Glossary.</strong> This is a feature that viewers regularly see in websites and so will not be overwhelming. The idea is to move the cursor/mouse over selected terms/phrases and have a definition appear. This is <a href="#" class="tooltip" style="color:green"><em>handy</em><span style="font-size:8pt">convenient to handle or use</span></a> for insurance and statistical terms, as well as reminders of selected acronyms.</p>
-<p><strong>Animated Graphs.</strong> We have also incorporated a number of animated graphs in the <a href="https://openacttexts.github.io/Loss-Data-Analytics/C-Simulation.html#S:ImportanceSampling">Simulation Chapter 6</a>. These are coded in <code>R</code> - although moving (animated), they do not require user interaction.</p>
-<p><strong>End of Section Quizzes.</strong> Another feature (not so easy to code) that we have introduced is quizzes that appear at the end of each section. These quizzes are low-level formative assessment tools; they allow viewers to check their comprehension of material that they have just read. More details on this feature appear in Section <a href="exercises-and-quizzes.html#Sec:EndSectionQuizzes">3.2</a> of this summary.</p>
-<p><strong>Exercises.</strong> One of our big challenges is to decide upon the type and extent of exercises to include. See the Section <a href="exercises-and-quizzes.html#Sec:Exercises">3.1</a> for a discussion.</p>
-</div>
-<div id="what-we-have-short-course" class="section level3 hasAnchor" number="1.2.2">
-<h3><span class="header-section-number">1.2.2</span> What we Have – Short Course<a href="why-interactive-features.html#what-we-have-short-course" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<p>In the <a href="https://openacttexts.github.io/LDACourse1/">Short Course on Loss Data Analytics</a>, we include:</p>
-<ul>
-<li><p><strong>Video explanation of concepts</strong>. Videos are easy to incorporate into our short course (books as well, although we have not done so). All videos are closed-captioned for accessibility. <a href="https://openacttextdev.github.io/LDAShortCourseStrategy/C-Instructions.html#video-contributors">Our strategy site</a> contains standards for video production.</p></li>
-<li><p><strong>Interactive statistical code</strong>. As we move from a world of mathematical/probabilistic modeling to one that features data, we need to think more about how to integrate statistcal code into the pedagogy. The short course tools provided by <em>Datacamp</em>. See Section <a href="code-spreadsheets-and-graphs.html#Sec:StatisticalCode">2.1</a> for a discussion.</p></li>
-<li><p><strong>Links to external sources</strong>. Videos are easy to incorporate into our short course (books as well, although we have not used them as actively as in the short course). The challenge is getting the right set of references and setting up a system so that links can be maintained.</p></li>
-</ul>
-</div>
-<div id="plans-for-future-work" class="section level3 hasAnchor" number="1.2.3">
-<h3><span class="header-section-number">1.2.3</span> Plans for Future Work<a href="why-interactive-features.html#plans-for-future-work" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<ul>
-<li><strong>Interactive graphs</strong>. The <code>R</code> package <strong>Shiny</strong> allows us to introduce interactive graphs. For an example, go to our <a href="https://openacttexts.github.io/LDARcode/#32_gamma_distribution">R code site under gamma distribution</a> fand click on the tab <em>Varying the Scale Parameter.</em> Part of the issue is getting volunteers to author the content. Another part is that this package requires a bit more overhead so it is not clear as to whether this gets integrated into the book or is placed in a supporting site.</li>
-<li><strong>RDRR.IO site</strong>. See Section <a href="code-spreadsheets-and-graphs.html#Sec:Graphs">2.3</a> for further discussion.</li>
-<li>Anaconda extensions. Very interesting.</li>
-<li>Google Colab - another possibility…</li>
-</ul>
-</div>
-</div>
-<div id="Sec:NonFeatures" class="section level2 hasAnchor" number="1.3">
-<h2><span class="header-section-number">1.3</span> Other (Non-Interactive) Features<a href="why-interactive-features.html#Sec:NonFeatures" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p>Simply to round out the discussion, we point out features that are not interactive that still help to set the book project apart as special. These include:</p>
-<ul>
-<li>Collaborative, international author and review teams. There a variety of points of view represented in this work, making it stronger than if authored by an individual.</li>
-<li>Offline versions of the text, via <em>pdf</em> and <em>EPUB</em>, are freely available.</li>
-<li>Translations of the work will begin shortly, focusing on a Spanish version but with a Portugese one also in the works.</li>
-</ul>
-
-</div>
+<div id="page-not-found" class="section level1">
+<h1>Page not found</h1>
+<p>The page you requested cannot be found (perhaps it was moved or renamed).</p>
+<p>You may want to try searching to find the page's new location, or use
+the table of contents to find the page you are looking for.</p>
 </div>
             </section>
 
           </div>
         </div>
       </div>
-<a href="index.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="code-spreadsheets-and-graphs.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+
+
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
